@@ -59,7 +59,10 @@
   };
 
   # Enable tailscale
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "server";
+  };
 
   systemd.services.tailscale-autoconnect = {
     description = "Automatic login to tailscale";
@@ -72,7 +75,10 @@
 	# Wait for tailscaled
 	sleep 2
 	tailscale status --self >/dev/null 2>&1 || \
-	tailscale up -authkey "$(cat /home/mrig/nix-config/keys/tailscale_key)"
+	tailscale up \
+	--advertise-exit-node \
+	--accept-routes \
+	-authkey "$(cat /home/mrig/nix-config/keys/tailscale_key)"
     '';
   };
   # Define a user account. Don't forget to set a password with ‘passwd’.
