@@ -51,6 +51,13 @@
     variant = "";
   };
 
+  # Setting lid change behaviour
+  services.logind = {
+    lidSwitch = "ignore";
+    lidSwitchExternalPower = "ignore";
+    lidSwitchDocked = "ignore";
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.mrig = {
     isNormalUser = true;
@@ -75,7 +82,7 @@
   ];
 
   programs.git.config = {
-      init.defaultBranch = "main";
+    init.defaultBranch = "main";
   };
 
   # Some programs need SUID wrappers, can be configured further or are
