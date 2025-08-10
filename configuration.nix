@@ -58,6 +58,23 @@
     lidSwitchDocked = "ignore";
   };
 
+  # Enable tailscale
+  services.tailscale.enable = true;
+
+  systemd.services.tailscale-autoconnect = {
+    description = "Automatic login to tailscale";
+    after = ["network-pre.target" "tailscale.service"];
+    wants = ["network-pre.target" "tailscale.service"];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig.Type = "oneshot";
+    path = [pkgs.tailscale];
+    script = ''
+	# Wait for tailscaled
+	sleep 2
+	tailscale status --self >/dev/null 2>&1 || \
+	tailscale up -authkey "$(cat /home/mrig/nix-config/keys/tailscale_key)"
+    '';
+  };
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.mrig = {
     isNormalUser = true;
@@ -85,6 +102,7 @@
   #  wget
     git
     vim
+    tailscale
   ];
 
   programs.git.config = {
