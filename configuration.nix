@@ -71,6 +71,7 @@
     packages = with pkgs; [
       fish
       helix
+      lazygit
     ];
   };
 
