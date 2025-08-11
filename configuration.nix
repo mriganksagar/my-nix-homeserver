@@ -81,6 +81,13 @@
 	-authkey "$(cat /home/mrig/nix-config/keys/tailscale_key)"
     '';
   };
+
+  # Jellyfin Service
+  services.jellyfin = {
+    enable = true;
+    openFirewall = true; #open ports 8096 etc
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.mrig = {
     isNormalUser = true;
@@ -95,6 +102,7 @@
       fish
       helix
       lazygit
+      bat
     ];
   };
 
@@ -109,6 +117,9 @@
     git
     vim
     tailscale
+    jellyfin
+    jellyfin-web
+    jellyfin-ffmpeg
   ];
 
   programs.git.config = {
