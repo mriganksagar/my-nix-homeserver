@@ -103,6 +103,7 @@
       helix
       lazygit
       bat
+      acpi # battery monitor
     ];
   };
 
