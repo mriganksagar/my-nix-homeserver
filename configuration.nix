@@ -86,6 +86,11 @@
   services.jellyfin = {
     enable = true;
     openFirewall = true; #open ports 8096 etc
+    dataDir = "/home/mrig/appdata/jellyfin/data";
+    configDir = "/home/mrig/appdata/jellyfin/config";
+    cacheDir = "/home/mrig/appdata/jellyfin/cache";
+    logDir = "/home/mrig/appdata/jellyfin/logs";
+    user = "mrig";
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
